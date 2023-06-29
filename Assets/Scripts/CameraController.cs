@@ -4,52 +4,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public static CameraController instance;
-    public Room currRoom;
-    public float moveSpeedWhenRoomChange;
-
-    void Start()
-    {
-        
-    }
-    void Awake()
-    {
-        instance = this;
-    }
+    //public Transform playerTransform; // referinta catre transformul jucatorului
+    //public float followSpeed = 5f; // viteza cu care camera urmareste jucatorul
 
     // Update is called once per frame
     void Update()
     {
-        UpdatePosition();
-    }
-
-    void UpdatePosition()
-    {
-        if(currRoom == null)
-        {
-            return;
-        }
-
-        Vector3 targetPos = GetCameraTargetPosition();
-
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedWhenRoomChange);
-    }
-
-    Vector3 GetCameraTargetPosition()
-    {
-        if(currRoom == null)
-        {
-            return Vector3.zero;
-        }
-
-        Vector3 targetPos = currRoom.GetRoomCentre();
-        targetPos.z = transform.position.z;
-
-        return targetPos;
-    }
-
-    public bool IsSwitchingScene()
-    {
-        return transform.position.Equals( GetCameraTargetPosition()) == false;
+        // urmareste jucatorul cu o anumita intarziere
+        //transform.position = Vector3.Lerp(transform.position, playerTransform.position, followSpeed * Time.deltaTime);
+        
+        // rotirea camerei sa fie in functie de rotirea jucatorului
+        //transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.eulerAngles.x, playerTransform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
     }
 }
